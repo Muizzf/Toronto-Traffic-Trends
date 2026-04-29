@@ -14,13 +14,17 @@ function createChart(canvasId, label, dataObj, type="bar") {
                 label: label,
                 data: Object.values(dataObj),
 
-                backgroundColor: "rgba(54, 162, 235, 0.6)",
-                borderColor: "rgba(54, 162, 235, 1)",
-                borderWidth: 2,
+                backgroundColor: "#e08207",
+                borderColor: "#e08207",
+                borderWidth: 1,
 
                 fill: false,
                 tension: 0.3
             }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
         }
     });
 }
@@ -30,41 +34,73 @@ fetch(`${BASE_URL}/total-accidents`)
   .then(res => res.json())
   .then(data => {
       document.getElementById("accidentsCard").innerText =
-        `Total Accidents: ${data}`;
+        `${data}`;
   });
 
 fetch(`${BASE_URL}/total-fatalities`)
   .then(res => res.json())
   .then(data => {
       document.getElementById("fatalitiesCard").innerText =
-        `Total Fatalities: ${data}`;
+        `${data}`;
   });
 
 fetch(`${BASE_URL}/peak-hour`)
   .then(res => res.json())
   .then(data => {
       document.getElementById("peakHourCard").innerText =
-        `Peak Hour: ${data}:00`;
+        `${data}:00`;
   });
 
 fetch(`${BASE_URL}/injury-rate`)
   .then(res => res.json())
   .then(data => {
       document.getElementById("injuryRateCard").innerText =
-        `Injury Rate: ${(data * 100).toFixed(2)}%`;
+        `${(data * 100).toFixed(2)}%`;
   });
 
 fetch(`${BASE_URL}/daily-accidents`)
   .then(res => res.json())
   .then(data => {
       document.getElementById("dailyAccidentsCard").innerText =
-        `Average Daily Accidents: ${data.toFixed(2)}`;
+        `${data.toFixed(2)}`;
+  });
+
+fetch(`${BASE_URL}/most-dangerous-day`)
+  .then(res => res.json())
+  .then(data => {
+      document.getElementById("mostDangerousDayCard").innerText =
+        `${data}`;
   });
 
 
 
-
 //charts
+
+
+// fetch(`${BASE_URL}/accidents-monthly`)
+//   .then(res => res.json())
+//   .then(data => {
+
+//       const labels = data.map(d => `${d.Month} ${d.Year}`);
+//       const values = data.map(d => d.count);
+
+//       new Chart(document.getElementById("accidentsChart"), {
+//           type: "line",
+//           data: {
+//               labels: labels,
+//               datasets: [{
+//                   label: "Accidents Over Time",
+//                   data: values,
+//                   borderColor: "rgba(54, 162, 235, 1)",
+//                   fill: false,
+//                   tension: 0.3
+//               }]
+//           }
+//       });
+
+//   });
+
+
 fetch(`${BASE_URL}/hour`)     // calls flask
   .then(res => res.json())    //json -> js object
   .then(data => {
@@ -75,6 +111,12 @@ fetch(`${BASE_URL}/day`)
   .then(res => res.json())
   .then(data => {
       createChart("dayChart", "Accidents by Day", data);
+  });
+
+fetch(`${BASE_URL}/year`)
+  .then(res => res.json())
+  .then(data => {
+      createChart("yearChart", "Accidents by Year", data , "line");
   });
 
 fetch(`${BASE_URL}/fatalities`)

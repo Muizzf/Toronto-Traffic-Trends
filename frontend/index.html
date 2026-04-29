@@ -1,30 +1,101 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Traffic Analytics Dashboard</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
+  <header class="topbar">
+    <img src="logo.png" alt="Logo" height="120">
 
-<header>
-  <h1>🚗 Toronto Traffic Analytics Dashboard</h1>
-</header>
+    <nav class="nav-links">
+      <a href="#" class="active">Overview</a>
+      <a href="#">Time Analysis</a>
+      <a href="#">Location</a>
+      <a href="#">Severity</a>
+      <a href="#">Insights</a>
+    </nav>
+  </header>
 
-<div class="cards">
-  <div class="card" id="accidentsCard">Loading...</div>
-  <div class="card" id="fatalitiesCard">Loading...</div>
-  <div class="card" id="peakHourCard">Loading...</div>
-  <div class="card" id="injuryRateCard">Loading...</div>
-  <div class="card" id="dailyAccidentsCard">Loading...</div>
-</div>
+  <!-- 🟢 MAIN CONTENT -->
+  <main class="main">
 
-<div class="dashboard">
-  <canvas id="hourChart"></canvas>
-  <canvas id="dayChart"></canvas>
-  <canvas id="fatalChart" class="full-width"></canvas>
-</div>
+    <header>
+      <h1>Overview (2014-2021)</h1>
+    </header>
+    <!-- total accidents, injuries, fatalities, %increase decrease overtime, most dangerous time and day -->
 
-<script src="script.js"></script>
+    <!-- main collisions overtime line chart -->
+    <!-- smaller Collisions by time of day
+        Collisions by day of week
+        map preview of collosion locaitons, button like veiw full map
+
+        add bullet points like 
+        “Collisions peak during evening rush hours”
+        “Most severe accidents occur at night”
+        “A small number of intersections account for a large share of incidents”
+        -->
+    <div class="cards">
+      
+      <div class="card">
+        <div class="card-label">Total Accidents</div>
+        <div class="card-value" id="accidentsCard">--</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Total Fatalities</div>
+        <div class="card-value" id="fatalitiesCard">--</div>
+        <div class="card-sub">Number of fatal accidents</div>
+      </div>
+      
+      <div class="card">
+        <div class="card-label">Injury Rate</div>
+        <div class="card-value" id="injuryRateCard">--</div>
+        <div class="card-sub">Percentage of accidents resulting in injuries</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Daily Accidents</div>
+        <div class="card-value" id="dailyAccidentsCard">--</div>
+        <div class="card-sub">Average accidents per day</div>
+      </div>
+
+      <!-- <div class="card">
+        <div class="card-label">Peak Hour</div>
+        <div class="card-value" id="peakHourCard">--</div>
+        <div class="card-sub">Most accidents occur at 5pm</div>
+      </div> -->
+
+      <!-- <div class="card">
+        <div class="card-label">Most Dangerous Day</div>
+        <div class="card-value" id="mostDangerousDayCard">--</div>
+      </div> -->
+
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card ">
+        <h3>Yearly Accidents</h3>
+        <canvas id="yearChart"></canvas>
+      </div>
+      <!-- <div class="chart-card">
+        <h3>Accidents by Hour</h3>
+        <canvas id="hourChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Accidents by Day of Week</h3>
+        <canvas id="dayChart"></canvas>
+      </div> -->
+      <div class="chart-card ">
+        <h3>Yearly Fatalities</h3>
+        <canvas id="fatalChart"></canvas>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
 </body>
+
 </html>

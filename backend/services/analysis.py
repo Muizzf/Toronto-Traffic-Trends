@@ -29,6 +29,13 @@ df["severity_score"] = (
 
 #.size() - counts rows icluding empty ones
 # value_counts() - couints unique values in a column, excluding empty ones
+# def accidents_by_month_year():
+#     result = df.groupby(["Year", "Month"]).size().reset_index(name="count")
+#     return result.to_dict(orient="records")
+def accidents_by_year():
+    result = df.groupby("Year").size()
+    return result.to_dict()
+
 def accidents_by_hour():
     result = df.groupby("Hour").size()
     return result.to_dict()
@@ -55,3 +62,7 @@ def total_injury_rate():
 
 def avg_daily_accidents():
     return float(df.groupby("OccurrenceDate").size().mean())
+
+def most_dangerous_day():
+    result = df.groupby("Day_of_Week").size()
+    return result.idxmax()

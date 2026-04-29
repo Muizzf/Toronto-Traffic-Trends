@@ -18,8 +18,30 @@ def total_fatalities_route():
 def peak_hour_route():
     return jsonify(peak_hour())
 
+@app.route("/api/injury-rate")
+def injury_rate():
+    return jsonify(total_injury_rate())
+
+@app.route("/api/daily-accidents")
+def daily_accidents():
+    return jsonify(avg_daily_accidents())
+
+@app.route("/api/most-dangerous-day")
+def dangerous_day():
+    return jsonify(most_dangerous_day())
+
+
 
 #charts
+
+# @app.route("/api/accidents-monthly")
+# def accidents_monthly():
+#     return jsonify(accidents_by_month_year())
+@app.route("/api/year")
+def year():
+    return jsonify(accidents_by_year())
+
+
 @app.route("/api/hour")
 def hour():
     return jsonify(accidents_by_hour())
@@ -32,13 +54,7 @@ def day():
 def fatalities():
     return jsonify(fatalities_by_year())
 
-@app.route("/api/injury-rate")
-def injury_rate():
-    return jsonify(total_injury_rate())
 
-@app.route("/api/daily-accidents")
-def daily_accidents():
-    return jsonify(avg_daily_accidents())
 
 if __name__ == "__main__":
     app.run(debug=True)
