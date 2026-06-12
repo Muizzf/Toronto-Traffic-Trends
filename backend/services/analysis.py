@@ -24,6 +24,8 @@ df["severity_score"] = (
     df["FTR_Collisions"] * 1
 )
 
+df["Date"] = df["OccurrenceDate"].dt.date
+
 # df.to_csv("data/cleaned.csv", index=False)
 
 
@@ -32,9 +34,31 @@ df["severity_score"] = (
 # def accidents_by_month_year():
 #     result = df.groupby(["Year", "Month"]).size().reset_index(name="count")
 #     return result.to_dict(orient="records")
+
+#overview kpis
+def total_accidents():
+    return len(df)
+
+def total_fatalities():
+    return int(df["Fatalities"].sum())
+
+def total_injury_rate():
+    return float(df["Injury_Collisions"].sum() / len(df))
+
+def avg_daily_accidents():
+    return float(df.groupby("Date").size().mean())
+
+#overview charts
 def accidents_by_year():
     result = df.groupby("Year").size()
     return result.to_dict()
+
+def fatalities_by_year():
+    result = df.groupby("Year")["Fatalities"].sum()
+    return result.to_dict()
+
+
+
 
 def accidents_by_hour():
     result = df.groupby("Hour").size()
@@ -44,24 +68,9 @@ def accidents_by_day():
     result = df["Day_of_Week"].value_counts()
     return result.to_dict()
 
-def fatalities_by_year():
-    result = df.groupby("Year")["Fatalities"].sum()
-    return result.to_dict()
-
-def total_accidents():
-    return len(df)
-
-def total_fatalities():
-    return int(df["Fatalities"].sum())
 
 def peak_hour():
     return int(df.groupby("Hour").size().idxmax())
-
-def total_injury_rate():
-    return float(df["Injury_Collisions"].sum() / len(df))
-
-def avg_daily_accidents():
-    return float(df.groupby("OccurrenceDate").size().mean())
 
 def most_dangerous_day():
     result = df.groupby("Day_of_Week").size()
