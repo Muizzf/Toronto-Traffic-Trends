@@ -6,13 +6,16 @@ const BASE_URL = "http://127.0.0.1:5000/api";
 function createChart(canvasId, label, dataObj, type = "bar") {
     const ctx = document.getElementById(canvasId);
 
+    const labels = dataObj.labels || Object.keys(dataObj);
+    const values = dataObj.values || Object.values(dataObj);
+
     new Chart(ctx, {
         type: type,
         data: {
-            labels: Object.keys(dataObj),
+            labels: labels,
             datasets: [{
                 label: label,
-                data: Object.values(dataObj),
+                data: values,
 
                 backgroundColor: "#e08207",
                 borderColor: "#e08207",
@@ -129,7 +132,7 @@ fetch(`${BASE_URL}/fatalities`)
 
 
 
-  
+// time analysis kpis
 fetch(`${BASE_URL}/peak-hour`)
   .then(res => res.json())
   .then(data => {
@@ -139,13 +142,39 @@ fetch(`${BASE_URL}/peak-hour`)
 
 
 fetch(`${BASE_URL}/most-dangerous-day`)
-  .then(res => res.json())
+.then(res => res.json())
+.then(data => {
+    document.getElementById("mostDangerousDayCard").innerText =
+    `${data}`;
+});
+
+fetch(`${BASE_URL}/most-dangerous-month`)
+.then(res => res.json())
+.then(data => {
+    document.getElementById("mostDangerousMonthCard").innerText =
+    `${data}`;
+});
+
+fetch(`${BASE_URL}/rush-hour-share`)
+.then(res => res.json())
+.then(data => {
+    document.getElementById("rushHourShareCard").innerText =
+    `${data.rush_hour_share}%`;
+});
+
+
+// time analysis charts
+fetch(`${BASE_URL}/hour`)     // calls flask
+  .then(res => res.json())    //json -> js object
   .then(data => {
-      document.getElementById("mostDangerousDayCard").innerText =
-        `${data}`;
+      createChart("hourChart", "Accidents by Hour", data, "line");
   });
 
-
+fetch(`${BASE_URL}/day`)
+  .then(res => res.json())
+  .then(data => {
+      createChart("dayChart", "Accidents by Day", data, "line");
+  });
 
 //charts
 
@@ -174,14 +203,3 @@ fetch(`${BASE_URL}/most-dangerous-day`)
 //   });
 
 
-fetch(`${BASE_URL}/hour`)     // calls flask
-  .then(res => res.json())    //json -> js object
-  .then(data => {
-      createChart("hourChart", "Accidents by Hour", data);
-  });
-
-fetch(`${BASE_URL}/day`)
-  .then(res => res.json())
-  .then(data => {
-      createChart("dayChart", "Accidents by Day", data);
-  });

@@ -5,6 +5,8 @@ from services.analysis import *
 app = Flask(__name__)
 CORS(app)  # allow frontend to connect
 
+app.config["JSON_SORT_KEYS"] = False
+
 #overview kpi's
 @app.route("/api/total-accidents")
 def total_accidents_route():
@@ -32,6 +34,7 @@ def fatalities():
     return jsonify(fatalities_by_year())
 
 
+# time analysis kpis
 
 @app.route("/api/peak-hour")
 def peak_hour_route():
@@ -41,14 +44,15 @@ def peak_hour_route():
 def dangerous_day():
     return jsonify(most_dangerous_day())
 
+@app.route("/api/most-dangerous-month")
+def dangerous_month():
+    return jsonify(most_dangerous_month())
 
+@app.route("/api/rush-hour-share")
+def rush_hour_share():
+    return jsonify(compute_rush_hour_share())
 
-#charts
-
-# @app.route("/api/accidents-monthly")
-# def accidents_monthly():
-#     return jsonify(accidents_by_month_year())
-
+# time analysis Charts
 
 @app.route("/api/hour")
 def hour():
@@ -57,6 +61,14 @@ def hour():
 @app.route("/api/day")
 def day():
     return jsonify(accidents_by_day())
+
+
+#charts
+
+# @app.route("/api/accidents-monthly")
+# def accidents_monthly():
+#     return jsonify(accidents_by_month_year())
+
 
 
 

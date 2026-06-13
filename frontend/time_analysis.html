@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Traffic Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <img src="logo.png" alt="Logo" height="120" />
+
+      <nav class="nav-links">
+        <a href="index.html">Overview</a>
+        <a href="time_analysis.html" class="active">Time Analysis</a>
+        <a href="location.html">Location</a>
+        <a href="severity.html">Severity</a>
+        <a href="insights.html">Insights</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <header>
+        <h1>Time Analysis (2014-2021)</h1>
+      </header>
+      <!-- tot injuries, %increase decrease overtime-->
+
+      <!-- smaller Collisions by time of day
+        map preview of collosion locaitons, button like veiw full map
+
+        add bullet points like 
+        “Collisions peak during evening rush hours”
+        “Most severe accidents occur at night”
+        “A small number of intersections account for a large share of incidents”
+        -->
+        <div class="cards">
+          <div class="card">
+            <div class="card-label">Peak Hour</div>
+            <div class="card-value" id="peakHourCard">--</div>
+            <div class="card-sub">Most accidents occur at 5pm</div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">Most Dangerous Day</div>
+            <div class="card-value" id="mostDangerousDayCard">--</div>
+            <div class="card-sub">
+              Day with the highest number of accidents
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">Most Dangerous Month</div>
+            <div class="card-value" id="mostDangerousMonthCard">--</div>
+            <div class="card-sub">
+              Month with the highest number of accidents
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">Rush Hour Share</div>
+            <div class="card-value" id="rushHourShareCard">--</div>
+            <div class="card-sub">Percentage of accidents during rush hours</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Accidents by Hour</h3>
+          <canvas id="hourChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Accidents by Day of Week</h3>
+          <canvas id="dayChart"></canvas>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
