@@ -33,10 +33,10 @@ function createChart(canvasId, label, dataObj, type = "bar") {
         },
 
         options: {
-          interaction: {
-            mode: "index",
-            intersect: false
-          },
+            interaction: {
+                mode: "index",
+                intersect: false
+            },
             responsive: true,
             maintainAspectRatio: false,
 
@@ -86,101 +86,98 @@ function createChart(canvasId, label, dataObj, type = "bar") {
     });
 }
 
+// helper function to fetch data from the API
+async function getData(endpoint) {
+    const response = await fetch(`${BASE_URL}/${endpoint}`);
+    return response.json();
+}
+
+
+
+
 //overview kpi's
-fetch(`${BASE_URL}/total-accidents`)
-    .then(res => res.json())
+getData("total-accidents")
     .then(data => {
         document.getElementById("accidentsCard").innerText =
-        `${data}`;
-  });
+            `${data}`;
+    });
 
-fetch(`${BASE_URL}/total-fatalities`)
-  .then(res => res.json())
-  .then(data => {
-      document.getElementById("fatalitiesCard").innerText =
-        `${data}`;
-  });
+getData("total-fatalities")
+    .then(data => {
+        document.getElementById("fatalitiesCard").innerText =
+            `${data}`;
+    });
 
-fetch(`${BASE_URL}/injury-rate`)
-    .then(res => res.json())
+getData("injury-rate")
     .then(data => {
         document.getElementById("injuryRateCard").innerText =
-        `${(data * 100).toFixed(2)}%`;
+            `${(data * 100).toFixed(2)}%`;
     });
-  
-fetch(`${BASE_URL}/daily-accidents`)
-    .then(res => res.json())
+
+getData("daily-accidents")
     .then(data => {
         document.getElementById("dailyAccidentsCard").innerText =
-        `${data.toFixed(2)}`;
+            `${data.toFixed(2)}`;
     });
 
 //overview charts
-    
-fetch(`${BASE_URL}/year`)
-  .then(res => res.json())
-  .then(data => {
-      createChart("yearChart", "Accidents by Year", data , "line");
-  });
-    
-fetch(`${BASE_URL}/fatalities`)
-  .then(res => res.json())
-  .then(data => {
-      createChart("fatalChart", "Fatalities by Year", data, "line");
-  });
-    
+
+getData("year")
+    .then(data => {
+        createChart("yearChart", "Accidents by Year", data, "line");
+    });
+
+getData("fatalities")
+    .then(data => {
+        createChart("fatalChart", "Fatalities by Year", data, "line");
+    });
+
+
+
 
 
 
 // time analysis kpis
-fetch(`${BASE_URL}/peak-hour`)
-  .then(res => res.json())
-  .then(data => {
-      document.getElementById("peakHourCard").innerText =
-        `${data}:00`;
-  });
+getData("peak-hour")
+    .then(data => {
+        document.getElementById("peakHourCard").innerText =
+            `${data}:00`;
+    });
 
+getData("most-dangerous-day")
+    .then(data => {
+        document.getElementById("mostDangerousDayCard").innerText =
+            `${data}`;
+    });
 
-fetch(`${BASE_URL}/most-dangerous-day`)
-.then(res => res.json())
-.then(data => {
-    document.getElementById("mostDangerousDayCard").innerText =
-    `${data}`;
-});
+getData("most-dangerous-month")
+    .then(data => {
+        document.getElementById("mostDangerousMonthCard").innerText =
+            `${data}`;
+    });
 
-fetch(`${BASE_URL}/most-dangerous-month`)
-.then(res => res.json())
-.then(data => {
-    document.getElementById("mostDangerousMonthCard").innerText =
-    `${data}`;
-});
-
-fetch(`${BASE_URL}/rush-hour-share`)
-.then(res => res.json())
-.then(data => {
-    document.getElementById("rushHourShareCard").innerText =
-    `${data.rush_hour_share}%`;
-});
+getData("rush-hour-share")
+    .then(data => {
+        document.getElementById("rushHourShareCard").innerText =
+            `${data.rush_hour_share}%`;
+    });
 
 
 // time analysis charts
-fetch(`${BASE_URL}/hour`)     // calls flask
-  .then(res => res.json())    //json -> js object
-  .then(data => {
-      createChart("hourChart", "Accidents by Hour", data, "line");
-  });
+getData("hour")     // calls flask
+    .then(data => { //json -> js object
+        createChart("hourChart", "Accidents by Hour", data, "line");
+    });
 
-fetch(`${BASE_URL}/day`)
-  .then(res => res.json())
-  .then(data => {
-      createChart("dayChart", "Accidents by Day", data, "line");
-  });
+getData("day")
+    .then(data => {
+        createChart("dayChart", "Accidents by Day", data, "line");
+    });
 
 //charts
 
 
-// fetch(`${BASE_URL}/accidents-monthly`)
-//   .then(res => res.json())
+// getData("accidents-monthly")
 //   .then(data => {
 
 //       const labels = data.map(d => `${d.Month} ${d.Year}`);
@@ -199,7 +196,4 @@ fetch(`${BASE_URL}/day`)
 //               }]
 //           }
 //       });
-
 //   });
-
-
