@@ -54,14 +54,26 @@ def rush_hour_share():
 
 # time analysis Charts
 
-@app.route("/api/hour")
+@app.route("/api/hourly")
 def hour():
     return jsonify(accidents_by_hour())
 
-@app.route("/api/day")
+@app.route("/api/daily")
 def day():
     return jsonify(accidents_by_day())
 
+@app.route("/api/monthly")
+def month():
+    return jsonify(accidents_by_month())
+
+
+
+
+#sverity kpis 
+
+@app.route("/api/total-injury-collisions")
+def total_injury_collisions_route():
+    return jsonify(total_injury_collisions())
 
 #charts
 

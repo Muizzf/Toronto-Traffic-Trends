@@ -1,9 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>Traffic Analytics Dashboard</title>
+    <title>Toronto Traffic Trends - Time Analysis</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/timeAnalysis.js"></script>
   </head>
 
   <body>
@@ -25,14 +27,13 @@
       </header>
       <!-- tot injuries, %increase decrease overtime-->
 
-      <!-- smaller Collisions by time of day
-        map preview of collosion locaitons, button like veiw full map
+        <!-- map preview of collosion locaitons, button like veiw full map
 
         add bullet points like 
         “Collisions peak during evening rush hours”
         “Most severe accidents occur at night”
-        “A small number of intersections account for a large share of incidents”
-        -->
+        “A small number of intersections account for a large share of incidents” -->
+        
         <div class="cards">
           <div class="card">
             <div class="card-label">Peak Hour</div>
@@ -65,16 +66,28 @@
       </div>
 
       <div class="chart-grid">
+
         <div class="chart-card">
           <h3>Accidents by Hour</h3>
           <canvas id="hourChart"></canvas>
         </div>
+
         <div class="chart-card">
           <h3>Accidents by Day of Week</h3>
           <canvas id="dayChart"></canvas>
         </div>
+        
       </div>
+
+      <div class="chart-grid-full">
+
+        <div class="chart-card">
+          <h3>Accidents by Month</h3>
+          <canvas id="monthChart"></canvas>
+        </div>
+        
+      </div>
+
     </main>
-    <script src="js/script.js"></script>
   </body>
 </html>

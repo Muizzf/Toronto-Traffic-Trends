@@ -42,6 +42,21 @@ DAY_ORDER = [
     "Sunday"
 ]
 
+MONTH_ORDER = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+]
+
 
 #.size() - counts rows icluding empty ones
 # value_counts() - couints unique values in a column, excluding empty ones
@@ -117,3 +132,24 @@ def accidents_by_day():
         "labels": DAY_ORDER,
         "values": result.tolist()
     }
+
+def accidents_by_month():
+    result = (
+            df["Month"]
+            .value_counts()
+            .reindex(MONTH_ORDER, fill_value=0)
+        )
+
+    return {
+            "labels": MONTH_ORDER,
+            "values": result.tolist()
+        }
+
+
+
+
+
+#severity kpis 
+
+def total_injury_collisions():
+    return int(df["Injury_Collisions"].sum())
